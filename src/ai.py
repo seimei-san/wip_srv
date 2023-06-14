@@ -42,7 +42,7 @@ msg = [
     {"role":"user", "content": "黒澤さん、明日の会議の資料を今日の夕方までに作成できますか"},
     {"role":"user", "content": "社長が明日の会議で説明するためにその資料が必要なんです。"},
     {"role":"user", "content": "最悪、明後日の午前１０時まで待てます"},
-    {"role":"user", "content": 'Please identify these elements such as "who to do", "by when", "untile when", "what to do", "at where", "in where", "to where", "how to do", "how much", "how many" and "why" from the above Japanese message in Japanese. If an element cannot be identifed, state none.'},
+    {"role":"user", "content": 'Please identify these elements such as "who to do", "by when", "untile when", "what to do", "at where", "in where", "to where", "how to do", "how much", "how many" and "why" from the above Japanese messages in Japanese. If an element cannot be identifed, state "none".'},
     ]
 print(ask_ChatCompletion(msg))
 # print(ask_Completion())
