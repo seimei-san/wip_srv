@@ -54,7 +54,7 @@
 
 body {
   font-family: 'Exo 2', sans-serif;
-  width: var(--max-width);
+  /* width: var(--max-width); */
   height: var(--max-height);
   background: var(--blue-base);
   color: var(--blue-text);
@@ -139,10 +139,10 @@ h3 {
 }
 
 /* #### Right Panel in Body #### */
-.panel_left {
+.panel_center {
   height: 860px;
 
-  width: 50%;
+  width: 600px;
   display: flax;
   flex-direction: column;
 }
@@ -172,7 +172,7 @@ h3 {
 
 /*#### Left Panel in Boyd ####*/
 .panel_right {
-  width: 50%;
+  width: 600px;
   height: 860px;
   display: flex;
   flex-direction: column;
@@ -189,4 +189,8 @@ h3 {
 }
 footer {
   height: 20px;
+}
+
+.panel_right {
+  width: auto;
 }
