@@ -1,6 +1,7 @@
 from src import app
 from flask import Flask, render_template, request, redirect
 import json
+from bs4 import BeautifulSoup
 
 
 @app.route('/')
@@ -9,7 +10,7 @@ def index():
     msg = "hoge fuga hoge"
     return render_template('index.html', text=msg)
 
-@app.route('/msgs', methods=["POST"])
+@app.route('/sym_msg', methods=["POST"])
 def insert_msgs():
     if request.method == "POST":
         print("OK")
@@ -23,5 +24,8 @@ def insert_msgs():
     print(tmp.get('message_id'))
     print(tmp.get('timestamp'))
     print(tmp.get('message'))
+    msg = BeautifulSoup(tmp.get('message'), "html.parser").find('p').text
+    print(msg)
+
     return tmp
 
