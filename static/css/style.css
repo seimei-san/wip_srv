@@ -46,7 +46,7 @@
 }
 
 * {
-  border: 1px black solid;
+  /* border: 1px black solid; */
   margin: 0;
   padding: 0;
   font-size: 14px;
@@ -58,7 +58,6 @@ body {
   height: var(--max-height);
   background: var(--blue-base);
   color: var(--blue-text);
-  border: 1px black solid;
 }
 
 header {
@@ -141,7 +140,6 @@ h3 {
 
 /* #### Right Panel in Body #### */
 .panel_left {
-  border:  1px black solid;
   height: 860px;
 
   width: 50%;
@@ -149,12 +147,17 @@ h3 {
   flex-direction: column;
 }
 .control_panel {
+  display: flex;
+  align-items: center;
   height: 80px;
   display: flex;
   flex-direction: row;
 }
 .params_box{
+  display: flex;
+  flex-direction: row;
   width: 560px;
+  height: 45px;
   font-size: 18px;
 }
 
@@ -171,7 +174,6 @@ h3 {
 .panel_right {
   width: 50%;
   height: 860px;
-  border: 1px black solid;
   display: flex;
   flex-direction: column;
 }
