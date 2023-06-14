@@ -1,12 +1,8 @@
-import openai
-from flask import Flask, render_template, url_for, request
+from flask import Flask
 from dotenv import load_dotenv
-import os
-import json
-import pymongo
-import datetime
-from bson.json_util import dumps
 
 load_dotenv()
 
-app=Flask(__name__)
+app = Flask(__name__, template_folder="../templates", static_folder="../static")
+
+import src.api
