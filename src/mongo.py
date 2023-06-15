@@ -5,6 +5,8 @@ import os
 import json
 from bson.json_util import dumps
 
+load_dotenv()
+
 
 def mongodb_conn():
   try:
@@ -41,14 +43,14 @@ def insert_msg(msg_json):
 
 
 
-load_dotenv()
 
+if __name__ == "__main__":
 
-insert_msg({
-    'msg': 'honya honya',
-    'date_time': '2023-06-12 10:20:23'  
-})
+  insert_msg({
+      'msg': 'honya honya',
+      'date_time': '2023-06-12 10:20:23'  
+  })
 
-print(dumps(get_msg()))
+  print(dumps(get_msg()))
     
 

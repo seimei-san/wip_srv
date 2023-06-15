@@ -9,6 +9,28 @@ load_dotenv()
 openai.organization=os.getenv('AI_ORG')
 openai.api_key=os.getenv('AI_KEY')
 
+
+def prompt_generator(msgs_json):
+    msg_in = []
+    msg_in.append(msgs_json)
+    prompt = []
+    for msg in msg_in:
+      speaker = msg['display_name']
+      msg_txt = speaker + 'は言いました。' + msg['message']
+      msg_json = {'role':'user', 'content': msg_txt}
+      prompt.append(msg_json)
+
+    if len(msgs_json) == 1:
+      prompt_json = {'role':'user', 'content': os.getenv('AI_PROMPT_S')}
+      prompt.append(prompt_json)
+    else:
+      prompt_json = {'role':'user', 'content': os.getenv('AI_PROMPT_M')}
+      prompt.append(prompt_json)
+
+    print("PROMPT: ", prompt)
+
+    return prompt
+
 def ask_ChatCompletion(msgs_json):
     completion = openai.ChatCompletion.create(
         model = "gpt-3.5-turbo",
@@ -23,7 +45,7 @@ def ask_ChatCompletion(msgs_json):
     return response
 
 
-def ask_Completion():
+def ask_Completion(msg):
     completion = openai.Completion.create(
         model = "text-davinci-003",
         prompt = 
@@ -38,11 +60,15 @@ def ask_Completion():
     return response
  
 
-msg = [
-    {"role":"user", "content": "黒澤さん、明日の会議の資料を今日の夕方までに作成できますか"},
-    {"role":"user", "content": "社長が明日の会議で説明するためにその資料が必要なんです。"},
-    {"role":"user", "content": "最悪、明後日の午前１０時まで待てます"},
-    {"role":"user", "content": 'Please identify these elements such as "who to do", "by when", "untile when", "what to do", "at where", "in where", "to where", "how to do", "how much", "how many" and "why" from the above Japanese messages in Japanese. If an element cannot be identifed, state "none".'},
-    ]
-print(ask_ChatCompletion(msg))
-# print(ask_Completion())
+
+
+if __name__ == "__main__":
+
+    msgs_json_sample = [
+        {'display_name': 'Symbot3 Kurosawa', 'user_id': 349026222360289, 'conversation_id': 'elNBjhvc4uirR7ZEyB_7XH___ndWQpHtdA', 'message_id': 'xw3Yz6GNWRodlGrfN5ehCX___ndFkUpkbQ', 'timestamp': 1686754997659, 'message': '明日の夕方までに資料を作ってください'},
+        {'display_name': 'Symbot3 Kurosawa', 'user_id': 349026222360289, 'conversation_id': 'elNBjhvc4uirR7ZEyB_7XH___ndWQpHtdA', 'message_id': 'xw3Yz6GNWRodlGrfN5ehCX___ndFkUpkbQ', 'timestamp': 1686754997659, 'message': '最悪、明日の11時まで'},
+        {'display_name': 'Symbot3 Kurosawa', 'user_id': 349026222360289, 'conversation_id': 'elNBjhvc4uirR7ZEyB_7XH___ndWQpHtdA', 'message_id': 'xw3Yz6GNWRodlGrfN5ehCX___ndFkUpkbQ', 'timestamp': 1686754997659, 'message': '社長が会議で新商品を説明するために必要なんです。'}
+        ]
+
+    print(ask_ChatCompletion(prompt_generator(msgs_json_sample)))
+    # print(ask_Completion())
