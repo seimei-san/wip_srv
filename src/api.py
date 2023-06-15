@@ -24,13 +24,14 @@ def insert_msgs():
     msg_in = msg_processor.msg_formatter_sym(request.data)
     mongo.insert_msg(msg_in)
 
+    print("######### Requesting AI #########")
+
     response = ai.ask_ChatCompletion(ai.prompt_generator(msg_in))
-    print(response)
 
     response = ai_msg_processor.ai_msg_parser(msg_in['display_name'], msg_in['user_id'], msg_in['conversation_id'], msg_in['message_id'], msg_in['date'], msg_in['time'], response)
     mongo.insert_msg(response)
+    print('######### Completed #########')
 
-    print(response)
     return render_template('index.html')
 
 
