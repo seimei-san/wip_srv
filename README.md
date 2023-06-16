@@ -4,7 +4,7 @@
 - MVPの部品としてAPIを使ったアプリを作った。
   - Symphonyのチャットを受信し、そのメッセージをChatGPTで解析して、５W2Hの有無を判定する機能を実装した。　
     - Symphonyのチャットを捉えるチャットボットを、Symphonyが提供するBDKで実装。　後述のWIPサーバーのAPIに捉えたメッセージを伝送。
-      -  このコードは、別のレポジトリーに保存した。
+      -  このコードは、別のレポジトリーに保存した。 https://github.com/seimei-san/wip_symphony_chatbot.git
     - チャットに５W2Hの存在を確認するサーバーサイド（仮称：WIPサーバー）を、Pythonで実装した。
       - チャットボットから送られるメッセージを受信するAPIを、PythonのFlaskを使って実装。
       - 受け取ったメッセージを、ChatGPTのAPIにメッセージを投げて、ChatGPTから帰る結果を受信
