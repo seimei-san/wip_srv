@@ -49,7 +49,7 @@ def ask_Completion(msg):
     completion = openai.Completion.create(
         model = "text-davinci-003",
         prompt = 
-            'Please identify these elements such as "who to do", "by when", "untile when", "what to do", "at where", "in where", "to where", "how to do", "how much", "how many" and "why" from the following Japanese text. If an element cannot be identifed, state NONE: "黒澤さん、明日の会議で社長が説明するための資料を今日の夕方までに作成できますか"',
+            '',
       temperature=0.7,
       max_tokens=1024,
       top_p=1,
