@@ -1,21 +1,35 @@
+#########################################################################
+#### Process the messages from Chatbot in order to supply to ChatGPT  ###
+#########################################################################
+
+
+
 import json
 from bs4 import BeautifulSoup
 import datetime
 
-
+#############################################
+# format a message from Symphony Chatbot into the WIP stadard message
+##############################################
 def msg_formatter_sym(msg_org):
+  company = "D159BDX9"
+  chat_sys = "sym"
+  orgin = 'user'
   msg = json.loads(msg_org.decode('utf-8'))
   display_name = msg.get('display_name')
   user_id = msg.get('user_id')
   conversation_id = msg.get('conversation_id')
+  thread_id = ""
   message_id = msg.get('message_id')
   datetime_stamp = datetime.datetime.fromtimestamp(msg.get('timestamp') / 1000)
   date = datetime_stamp.date().strftime('%Y-%m-%d')
   time = datetime_stamp.time().strftime('%X')
   message = msg.get('message')
-  msg_msg = BeautifulSoup(message, "html.parser").find('p').text
-  msg_json = {'origin': 'user', 'display_name': display_name, 'user_id': user_id, 'conversation_id': conversation_id, 'message_id': message_id, 'date': date, 'time': time, 'message': msg_msg}
 
+  # Extract the message from Symphony presentationHTML format message
+  msg_msg = BeautifulSoup(message, "html.parser").find('p').text
+  
+  msg_json = {'company': company, 'chat_sys': chat_sys, 'origin': orgin, 'display_name': display_name, 'user_id': user_id, 'conversation_id': conversation_id, 'thread_id': thread_id, 'message_id': message_id, 'date': date, 'time': time, 'message': msg_msg}
   return msg_json
 
 

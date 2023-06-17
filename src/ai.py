@@ -1,3 +1,8 @@
+##################################################
+### Generate and send the prompt to ChatGPT   ####
+##################################################
+
+
 import openai
 
 from dotenv import load_dotenv
@@ -10,6 +15,9 @@ openai.organization=os.getenv('AI_ORG')
 openai.api_key=os.getenv('AI_KEY')
 
 
+#########################
+# generate a prompt based on the received Chatbot mesasge
+#########################
 def prompt_generator(msgs_json):
     msg_in = []
     msg_in.append(msgs_json)
@@ -31,6 +39,9 @@ def prompt_generator(msgs_json):
 
     return prompt
 
+##########################
+# send the generated prompt to ChatGPT (ChatCompletion)
+##########################
 def ask_ChatCompletion(msgs_json):
     completion = openai.ChatCompletion.create(
         model = "gpt-3.5-turbo",
@@ -45,6 +56,9 @@ def ask_ChatCompletion(msgs_json):
     return response
 
 
+#########################
+# This is not in use (Completion)
+#########################
 def ask_Completion(msg):
     completion = openai.Completion.create(
         model = "text-davinci-003",
