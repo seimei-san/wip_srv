@@ -9,9 +9,9 @@ import json
 
 from src import ai
 from src import msg_processor
-from src import mongo
+from src import mongo_func
 from src import ai_msg_processor
-from src.mysql_proc import MySqlDb
+from src.mysql_func import MySqlDb
 
 @app.route('/')
 def index():
@@ -32,7 +32,7 @@ def insert_msgs():
         return render_template('index.html')
 
     msg_in = msg_processor.msg_formatter_sym(request.data)
-    mongo.insert_msg(msg_in)
+    mongo_func.insert_msg(msg_in)
 
     print("######### Requesting AI #########")
 
@@ -44,7 +44,7 @@ def insert_msgs():
         print("api.py: ERRROR: AI response is empty!")
     else:
         response = ai_msg_processor.ai_msg_parser(msg_in['company_id'], msg_in['chat_sys'], msg_in['display_name'], msg_in['user_id'], msg_in['conversation_id'], "", msg_in['message_id'], msg_in['date'], msg_in['time'], response_org)
-        mongo.insert_msg(response)
+        mongo_func.insert_msg(response)
 
         score = ai_msg_processor.ai_msg_score(msg_in['company_id'], msg_in['chat_sys'], msg_in['display_name'], msg_in['user_id'], msg_in['conversation_id'], "", msg_in['message_id'], msg_in['date'], msg_in['time'], response_org)
         mysqldb = MySqlDb()
