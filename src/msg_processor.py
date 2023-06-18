@@ -12,7 +12,7 @@ import datetime
 # format a message from Symphony Chatbot into the WIP stadard message
 ##############################################
 def msg_formatter_sym(msg_org):
-  company = "D159BDX9"
+  company_id = "D159BDX9"
   chat_sys = "sym"
   orgin = 'user'
   msg = json.loads(msg_org.decode('utf-8'))
@@ -29,7 +29,7 @@ def msg_formatter_sym(msg_org):
   # Extract the message from Symphony presentationHTML format message
   msg_msg = BeautifulSoup(message, "html.parser").find('p').text
   
-  msg_json = {'company': company, 'chat_sys': chat_sys, 'origin': orgin, 'display_name': display_name, 'user_id': user_id, 'conversation_id': conversation_id, 'thread_id': thread_id, 'message_id': message_id, 'date': date, 'time': time, 'message': msg_msg}
+  msg_json = {'company_id': company_id, 'chat_sys': chat_sys, 'origin': orgin, 'display_name': display_name, 'user_id': user_id, 'conversation_id': conversation_id, 'thread_id': thread_id, 'message_id': message_id, 'date': date, 'time': time, 'message': msg_msg}
   return msg_json
 
 

@@ -5,4 +5,4 @@ bson
 openai
 beautifulsoup4
 lxml
-mysqlclient
+mysql-connector-python

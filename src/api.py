@@ -11,6 +11,7 @@ from src import ai
 from src import msg_processor
 from src import mongo
 from src import ai_msg_processor
+from src.mysql_proc import MySqlDb
 
 @app.route('/')
 def index():
@@ -35,14 +36,26 @@ def insert_msgs():
 
     print("######### Requesting AI #########")
 
-    response = ai.ask_ChatCompletion(ai.prompt_generator(msg_in))
-    print(response)
+    response_org = ai.ask_ChatCompletion(ai.prompt_generator(msg_in))
+    print("AI_RESPONSE: ", response_org)
+    print("######### AI Response ##########")
 
-    response = ai_msg_processor.ai_msg_parser(msg_in['company'], msg_in['chat_sys'], msg_in['display_name'], msg_in['user_id'], msg_in['conversation_id'], "", msg_in['message_id'], msg_in['date'], msg_in['time'], response)
-    mongo.insert_msg(response)
-    print('######### Completed #########')
+    if len(response_org) == 0:
+        print("api.py: ERRROR: AI response is empty!")
+    else:
+        response = ai_msg_processor.ai_msg_parser(msg_in['company_id'], msg_in['chat_sys'], msg_in['display_name'], msg_in['user_id'], msg_in['conversation_id'], "", msg_in['message_id'], msg_in['date'], msg_in['time'], response_org)
+        mongo.insert_msg(response)
 
-    return render_template('index.html')
+        score = ai_msg_processor.ai_msg_score(msg_in['company_id'], msg_in['chat_sys'], msg_in['display_name'], msg_in['user_id'], msg_in['conversation_id'], "", msg_in['message_id'], msg_in['date'], msg_in['time'], response_org)
+        mysqldb = MySqlDb()
+        try:
+            result = mysqldb.insert_wip_score(score)
+        except Exception as e:
+            print("api.py: ERROR: cannot insert score into MySQL: %s", e)
+
+        print('######### Completed #########')
+
+        return render_template('index.html')
 
 
 

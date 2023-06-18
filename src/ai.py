@@ -24,7 +24,8 @@ def prompt_generator(msgs_json):
     prompt = []
     for msg in msg_in:
       speaker = msg['display_name']
-      msg_txt = speaker + 'は言いました。' + msg['message']
+      # msg_txt = speaker + 'は言いました。' + msg['message']
+      msg_txt = msg['message']
       msg_json = {'role':'user', 'content': msg_txt}
       prompt.append(msg_json)
 
@@ -65,7 +66,8 @@ def ask_Completion(msg):
         prompt = 
             '',
       temperature=0.7,
-      max_tokens=1024,
+      # max_tokens=1024,
+      max_tokens=3000,
       top_p=1,
       frequency_penalty=0,
       presence_penalty=0

@@ -55,15 +55,24 @@ def insert_msg(msg_json):
     print('mongo.py: ERROR: Could not insert a msg to DB')
 
 
+##################
+# !!! Use for DEV only !!!
+# All Documents in the collection  
+##################
+def delete_msg_all():
+  db_client = mongodb_conn()
+  db = db_client[os.getenv('MONGO_DB')]
+  db[os.getenv('MONGO_COLS')].delete_many({})
 
 
 if __name__ == "__main__":
 
-  insert_msg({
-      'msg': 'honya honya',
-      'date_time': '2023-06-12 10:20:23'  
-  })
 
-  print(dumps(get_msg()))
+##################
+# !!! Use for DEV only !!!
+# All Documents in the collection  
+##################
+  delete_msg_all()
+  print("All documents have been deleted!")
     
 
