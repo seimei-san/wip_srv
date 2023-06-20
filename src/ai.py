@@ -63,8 +63,7 @@ def ask_ChatCompletion(msgs_json):
 def ask_Completion(msg):
     completion = openai.Completion.create(
         model = "text-davinci-003",
-        prompt = 
-            '',
+        prompt = '',
       temperature=0.7,
       # max_tokens=1024,
       max_tokens=3000,

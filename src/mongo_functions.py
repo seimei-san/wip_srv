@@ -6,8 +6,8 @@ import pymongo
 import datetime
 from dotenv import load_dotenv
 import os
-import json
 from bson.json_util import dumps
+from bson.objectid import ObjectId
 
 load_dotenv()
 
@@ -49,8 +49,16 @@ def insert_msg(msg_json):
   try:
     db = db_client[os.getenv('MONGO_DB')]
     cols = db[os.getenv('MONGO_COLS')]
-    cols.insert_one(msg_json)
+    result = cols.insert_one(msg_json)
+    doc_id = result.inserted_id
     db_client.close()
+
+    # convert Mongo ObjectId into String and return int doc_id
+    if isinstance(doc_id, ObjectId):
+      return str(doc_id)
+    
+    raise TypeError(repr(doc_id)) + " is error"
+  
   except:
     print('mongo.py: ERROR: Could not insert a msg to DB')
 
@@ -63,6 +71,8 @@ def delete_msg_all():
   db_client = mongodb_conn()
   db = db_client[os.getenv('MONGO_DB')]
   db[os.getenv('MONGO_COLS')].delete_many({})
+
+
 
 
 if __name__ == "__main__":

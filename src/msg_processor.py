@@ -27,6 +27,7 @@ def msg_formatter_sym(msg_org):
   message = msg.get('message')
 
   # Extract the message from Symphony presentationHTML format message
+  # TODO need to capture text with multiple <p>
   msg_msg = BeautifulSoup(message, "html.parser").find('p').text
   
   msg_json = {'company_id': company_id, 'chat_sys': chat_sys, 'origin': orgin, 'display_name': display_name, 'user_id': user_id, 'conversation_id': conversation_id, 'thread_id': thread_id, 'message_id': message_id, 'date': date, 'time': time, 'message': msg_msg}

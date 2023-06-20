@@ -36,6 +36,7 @@ class MySqlDb:
       origin, 
       display_name, 
       user_id, 
+      doc_id,
       conversation_id, 
       thread_id, 
       message_id, 
@@ -55,7 +56,7 @@ class MySqlDb:
       what_to_do, 
       why)
     VALUES
-      (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+      (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
     """
     data = (
       score_json['company_id'], 
@@ -63,6 +64,7 @@ class MySqlDb:
       score_json['origin'], 
       score_json['display_name'], 
       score_json['user_id'], 
+      score_json['doc_id'], 
       score_json['conversation_id'], 
       score_json['thread_id'], 
       score_json['message_id'], 
@@ -111,8 +113,9 @@ class MySqlDb:
 
 
 if __name__ == "__main__":
-  print('__name__')
   
-  # db = MySqlDb()
-  # db.delete_scores_all()
+  print('Delete All Records!!!')
+  db = MySqlDb()
+  db.delete_scores_all()
+
   
